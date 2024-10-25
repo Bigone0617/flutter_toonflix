@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toonflix_app/models/webtoon_model.dart';
 import 'package:toonflix_app/services/api_service.dart';
+import 'package:toonflix_app/widgets/%08like_toon_list_widget.dart';
 import 'package:toonflix_app/widgets/webtoon_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -19,23 +20,30 @@ class HomeScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.white,
       ),
-      body: FutureBuilder(
-        future: webtoons,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Column(
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                Expanded(child: makeList(snapshot)),
-              ],
-            );
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+      body: Column(
+        children: [
+          Expanded(
+            flex: 2,
+            child: FutureBuilder(
+              future: webtoons,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Column(
+                    children: [
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Expanded(child: makeList(snapshot)),
+                    ],
+                  );
+                }
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
